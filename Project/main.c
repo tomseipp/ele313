@@ -137,6 +137,16 @@ int main(void){
 					right_motor_set_speed(600);
 				}
 			
+			} else{ // nothing in front therfore go forwards
+				set_led(LED1,0);
+				set_led(LED3,0);
+				set_led(LED7,0);
+				set_rgb_led(LED2,0,0,0);
+				set_rgb_led(LED8,0,0,0);
+				left_motor_set_speed(1000);
+				right_motor_set_speed(1000); 
+				
+				
 			}
 
 		
