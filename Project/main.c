@@ -58,7 +58,7 @@ int main(void){
 	int threshold = 600;
 
 	while (1){ // infinite Main Loop!
-		while (get_selector() < 11){ // when selector >=11 robot wont move
+		while (get_selector() < 11){ // when selector >=11 robot wont move, if it was over 11 wheelspeed would be too high
 			wheelMult = get_selector()
 			front_right = get_calibrated_prox(0);
 			front_left = get_calibrated_prox(7);
