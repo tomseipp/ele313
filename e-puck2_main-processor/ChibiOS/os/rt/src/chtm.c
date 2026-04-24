@@ -126,7 +126,7 @@ NOINLINE void chTMStartMeasurementX(time_measurement_t *tmp) {
  *
  * @xclass
  */
-NOINLINE void chTMStopMeasurementX(time_measurement_t *tmp) {
+ NOINLINE void chTMStopMeasurementX(time_measurement_t *tmp) {
 
   tm_stop(tmp, chSysGetRealtimeCounterX(), ch.tm.offset);
 }

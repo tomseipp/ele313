@@ -55,11 +55,13 @@ int main(void){
 	int side_left;
 	int wheelMult;
 
-	int threshold = 600;
+	int threshold = 500;
+	int FRONTthreshold = 400;
+
 
 	while (1){ // infinite Main Loop!
 		while (get_selector() < 11){ // when selector >=11 robot wont move, if it was over 11 wheelspeed would be too high
-			wheelMult = get_selector()
+			wheelMult = get_selector();
 			front_right = get_calibrated_prox(0);
 			front_left = get_calibrated_prox(7);
 			corner_right = get_calibrated_prox(1);
@@ -67,23 +69,23 @@ int main(void){
 			side_right = get_calibrated_prox(2);
 			side_left = get_calibrated_prox(5);
 
-			if (front_right >threshold|| front_left>threshold){
+			if (front_right >FRONTthreshold|| front_left>FRONTthreshold){
 				//code to turn 90 degrees
 				set_led(LED1,1);
 				set_led(LED3,0);
 				set_led(LED7,0);
 				set_rgb_led(LED2,0,0,0);
 				set_rgb_led(LED8,0,0,0);
-				if (side_right > threshold){
+				if (side_right > threshold || front_right >FRONTthreshold){
 					//if something is on right side turn left
 					left_motor_set_speed(-50*wheelMult);
 					right_motor_set_speed(50*wheelMult); 
-					chThdSleepMilliseconds(3000/wheelMult);
+					chThdSleepMilliseconds(7000/wheelMult);
 				}else{
 					//turn right
 					left_motor_set_speed(50*wheelMult);
 					right_motor_set_speed(-50*wheelMult); 
-					chThdSleepMilliseconds(3000/wheelMult);
+					chThdSleepMilliseconds(4000/wheelMult);
 				}
 			
 			} else if(corner_right >threshold|| corner_left>threshold){
@@ -97,20 +99,20 @@ int main(void){
 					//turn around
 					left_motor_set_speed(50*wheelMult);
 					right_motor_set_speed(-50*wheelMult); 
-					chThdSleepMilliseconds(6000wheelMult);
+					chThdSleepMilliseconds(8000/wheelMult);
 				} else if (corner_right > threshold){
 					set_rgb_led(LED2,10,0,0);
 					set_rgb_led(LED8,0,0,0);
 					//if something is on right side turn left
-					left_motor_set_speed(20*wheelMult);
-					right_motor_set_speed(50*wheelMult); 
+					left_motor_set_speed(-20*wheelMult);
+					right_motor_set_speed(60*wheelMult);
 					
 				}else{
 					set_rgb_led(LED2,0,0,0);
 					set_rgb_led(LED8,10,0,0);
 					//turn right
-					left_motor_set_speed(50*wheelMult);
-					right_motor_set_speed(20*wheelMult); 
+					left_motor_set_speed(60*wheelMult);
+					right_motor_set_speed(-20*wheelMult);
 				}
 			
 			}else if(side_right >threshold|| side_left>threshold){
@@ -124,19 +126,19 @@ int main(void){
 					set_led(LED7,1);
 					left_motor_set_speed(50*wheelMult);
 					right_motor_set_speed(-50*wheelMult); 
-					chThdSleepMilliseconds(6000/wheelMult);
+					chThdSleepMilliseconds(8000/wheelMult);
 				} else if (side_right > threshold){
 					set_led(LED3,1);
 					set_led(LED7,0);
 					//if something is on right side turn left
-					left_motor_set_speed(60*wheelMult);
+					left_motor_set_speed(-30*wheelMult);
 					right_motor_set_speed(70*wheelMult); 
 				}else{
 					set_led(LED3,0);
 					set_led(LED7,1);
 					//turn right
 					left_motor_set_speed(70*wheelMult);
-					right_motor_set_speed(60*wheelMult);
+					right_motor_set_speed(-30*wheelMult);
 				}
 			
 			} else{ // nothing in front therfore go forwards
@@ -153,6 +155,13 @@ int main(void){
 
 		
 		} //end of selector loop
+		left_motor_set_speed(0);
+		right_motor_set_speed(0);
+		set_led(LED1,1);
+		set_led(LED3,1);
+		set_led(LED7,1);
+		set_rgb_led(LED2,0,1,0);
+		set_rgb_led(LED8,0,1,0);
 	} // end of infinite loop
 	
    
